@@ -8,7 +8,7 @@ function solution(n, lost, reserve) {
 
             if(lost.length < reserve.length){
                 if(turn == 0){
-                    if(l == p || l == m){
+                    if(l == p || l == m){ 
                         answer = answer +1
                         turn = 1
                     }
