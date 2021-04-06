@@ -1,28 +1,39 @@
 function solution(n, lost, reserve) {
-    let answer = 0;
-    for(let r of reserve){
-        let turn = 0
-        for(let l of lost){
-            let p = r + 1
-            let m = r - 1
-
-            if(lost.length < reserve.length){
-                if(turn == 0){
-                    if(l == p || l == m){ 
-                        answer = answer +1
-                        turn = 1
-                    }
-                }
-            }else{
-                if(l == p || l == m){
-                    answer = answer +1
-                    turn = 1
-                }
+    
+    let answerList = []
+    
+    for(let i=0; i<n; i++){
+        answerList.push(1)
+    }
+    
+    for(let i=1; i<=n; i++){
+        for(let l=0; l<lost.length; l++){
+            if(i === lost[l]){
+                answerList[i-1] = 0
+            }
+        }
+        for(let r=0; r<reserve.length; r++){
+            if(i === reserve[r]){
+                answerList[i-1] += 1
             }
         }
     }
-
-    answer = answer + lost.length
-
+    
+    for(let a=0; a<answerList.length; a++){
+        if(answerList[a] === 0 && answerList[a+1] === 2){
+            answerList[a] = 1
+            answerList[a+1] = 1
+        }else if(answerList[a] === 0 && answerList[a-1] === 2){
+            answerList[a] = 1
+            answerList[a-1] = 1
+        }
+    }
+    
+    let answer = 0
+    for(let ans of answerList){
+        if(ans >= 1){
+            answer++;
+        }
+    }
     return answer
 }
